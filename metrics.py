@@ -1,62 +1,63 @@
 import numpy as np
 
 def confusion_matrix(actual, predictions):
-    """
-    Args:
-        actual (np.array): predicted labels of length N
-        predictions (np.array): predicted labels of length N
-
-    Output:
-        confusion_matrix (np.array): 2x2 confusion matrix between predicted and actual labels
-
-    """
-
+    tn = 0
+    tp = 0
+    fn = 0
+    fp = 0
     if predictions.shape[0] != actual.shape[0]:
         raise ValueError("predictions and actual must be the same length!")
-    
-    raise NotImplementedError()
+        
+    for i in range(actual.shape[0]):
+
+        if actual[i] == 1:  #True_...
+            if predictions[i] == 1:
+                tp += 1
+            else:
+                fn += 1
+        else:
+            if predictions[i] == 0:
+                tn += 1
+            else:
+                fp += 1
+
+    confusion_matrx = np.array([
+                        [tn, fp],
+                        [fn, tp]
+                        ])
+    return confusion_matrx
 
 def accuracy(actual, predictions):
-    """
-    Args:
-        actual (np.array): predicted labels of length N
-        predictions (np.array): predicted labels of length N
-
-    Output:
-        accuracy (float): accuracy
-    """
     if predictions.shape[0] != actual.shape[0]:
         raise ValueError("predictions and actual must be the same length!")
-
-    raise NotImplementedError()
+        
+    matrix = confusion_matrix(actual, predictions)
+    
+    #Accuray = TN + TP / (TN + FP + FN + TP)
+    accuracy = (matrix[0,0] + matrix[1,1]) / matrix.sum(dtype='float')
+    
+    return accuracy
 
 def precision_and_recall(actual, predictions):
-    """
-    Args:
-        actual (np.array): predicted labels of length N
-        predictions (np.array): predicted labels of length N
-
-    Output:
-        precision (float): precision
-        recall (float): recall
-    """
+    
     if predictions.shape[0] != actual.shape[0]:
         raise ValueError("predictions and actual must be the same length!")
 
-    raise NotImplementedError()
+    matrix = confusion_matrix(actual, predictions)
+    #Precision = TP / TP + FP
+    precision = matrix[1,1] / matrix.sum(axis=0, dtype='float')[-1]
+
+    #RECALL = TP / TP+FN
+    recall = matrix[1,1] / matrix.sum(axis=1, dtype='float')[-1]
+
+    return precision, recall
 
 def f1_measure(actual, predictions):
-    """
-    Args:
-        actual (np.array): predicted labels of length N
-        predictions (np.array): predicted labels of length N
-
-    Output:
-        f1_measure (float): F1 measure of dataset (harmonic mean of precision and 
-        recall)
-    """
     if predictions.shape[0] != actual.shape[0]:
         raise ValueError("predictions and actual must be the same length!")
-
-    raise NotImplementedError()
+        
+    precision, recall = precision_and_recall(actual, predictions)
+ 
+    F1_measure = (2 * recall * precision)/ (recall + precision)
+    return F1_measure
 
