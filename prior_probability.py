@@ -2,43 +2,40 @@ import numpy as np
 
 class PriorProbability():
     def __init__(self):
-        """
-        This is a simple classifier that only uses prior probability to classify 
-        points. It just looks at the classes for each data point and always predicts
-        the most common class.
-
-        """
+        
         self.most_common_class = None
+        self.positive_class = 1
+        self.negative_class = 0
 
     def fit(self, features, targets):
-        """
-        Implement a classifier that works by prior probability. Takes in features
-        and targets and fits the features to the targets using prior probability.
+        
+        #Training model
+        pos = 0
+        neg = 0
+        for i in targets:
+            if i == 1:
+                pos += 1
+            else:
+                neg += 1
+        if pos >= neg:
+            self.most_common_class = self.positive_class
+        else:
+            self.most_common_class = self.negative_class
 
-        Args:
-            features (np.array): numpy array of size NxF containing features, where N is
-                number of examples and F is number of features.
-            targets (np.array): numpy array containing class labels for each of the N 
-                examples.
-        Output:
-            VOID: You should be updating self.most_common_class with the most common class
-            found from the prior probability.
-        """
-
-        raise NotImplementedError()
 
     def predict(self, data):
-        """
-        Takes in features as a numpy array and predicts classes for each point using
-        the trained model.
-
-        Args:
-            features (np.array): numpy array of size NxF containing features, where N is
-                number of examples and F is number of features.
-        Outputs:
-            predictions (np.array): numpy array of size N array which has the predicitons 
-            for the input data.
-        """
-
+        #Using the training to the new data
+        # Initialize a prediction array thats the size of the num of examples
+        #Return whatever the most common class is
+        # if my most common class is 0, You want to return a prediction array
+        # which is the size of the # of examples that you want to return
+        #an array thats filled with the most common class. Thats how the learner predicts
+        #iterate through the list data shape []
         
-        raise NotImplementedError()
+        
+        if self.most_common_class == True:
+            predictions = np.ones(data.shape[0])
+        else:
+            predictions = np.zeros(data.shape[0])
+
+        return predictions
