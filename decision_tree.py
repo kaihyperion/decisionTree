@@ -3,12 +3,6 @@ import numpy as np
 class Node():
     def __init__(self, value=None, attribute_name="root", attribute_index=None, branches=None):
         """
-        This class implements a tree structure with multiple branches at each node.
-        If self.branches is an empty list, this is a leaf node and what is contained in
-        self.value is the predicted class.
-
-        The defaults for this are for a root node in the tree.
-
         Arguments:
             branches (list): List of Tree classes. Used to traverse the tree. In a
                 binary decision tree, the length of this list is either 2 (for left and
@@ -27,31 +21,7 @@ class Node():
 
 class DecisionTree():
     def __init__(self, attribute_names):
-        """
-        TODO: Implement this class.
-
-        This class implements a binary decision tree learner for examples with
-        categorical attributes. Use the ID3 algorithm for implementing the Decision
-        Tree: https://en.wikipedia.org/wiki/ID3_algorithm
-
-        A decision tree is a machine learning model that fits data with a tree
-        structure. Each branching point along the tree marks a decision (e.g.
-        today is sunny or today is not sunny). Data is filtered by the value of
-        each attribute to the next level of the tree. At the next level, the process
-        starts again with the remaining attributes, recursing on the filtered data.
-
-        Which attributes to split on at each point in the tree are decided by the
-        information gain of a specific attribute.
-
-        Here, you will implement a binary decision tree that uses the ID3 algorithm.
-        Your decision tree will be contained in `self.tree`, which consists of
-        nested Tree classes (see above).
-
-        Args:
-            attribute_names (list): list of strings containing the attribute names for
-                each feature (e.g. chocolatey, good_grades, etc.)
-        
-        """
+  
         self.attribute_names = attribute_names
         self.tree = None
 
@@ -79,35 +49,19 @@ class DecisionTree():
         raise NotImplementedError()
 
     def predict(self, features):
-        """
-        Takes in features as a numpy array and predicts classes for each point using
-        the trained model.
 
-        Args:
-            features (np.array): numpy array of size NxF containing features, where N is
-                number of examples and F is number of features.
-        Outputs:
-            predictions (np.array): numpy array of size N array which has the predicitons 
-            for the input data.
-        """
         self._check_input(features)
 
         raise NotImplementedError()
 
     def _visualize_helper(self, tree, level):
-        """
-        Helper function for visualize a decision tree at a given level of recursion.
-        """
+
         tab_level = "  " * level
         val = tree.value if tree.value is not None else 0
         print("%d: %s%s == %f" % (level, tab_level, tree.attribute_name, val))
 
     def visualize(self, branch=None, level=0):
-        """
-        Visualization of a decision tree. Implemented for you to check your work and to
-        use as an example of how to use the given classes to implement your decision
-        tree.
-        """
+
         if not branch:
             branch = self.tree
         self._visualize_helper(branch, level)
@@ -116,54 +70,7 @@ class DecisionTree():
             self.visualize(branch, level+1)
 
 def information_gain(features, attribute_index, targets):
-    """
-    TODO: Implement me!
-
-    Information gain is how a decision tree makes decisions on how to create
-    split points in the tree. Information gain is measured in terms of entropy.
-    The goal of a decision tree is to decrease entropy at each split point as much as
-    possible. This function should work perfectly or your decision tree will not work
-    properly.
-
-    Information gain is a central concept in many machine learning algorithms. In
-    decision trees, it captures how effective splitting the tree on a specific attribute
-    will be for the goal of classifying the training data correctly. Consider
-    data points S and an attribute A. S is split into two data points given binary A:
-
-        S(A == 0) and S(A == 1)
-
-    Together, the two subsets make up S. If A was an attribute perfectly correlated with
-    the class of each data point in S, then all points in a given subset will have the
-    same class. Clearly, in this case, we want something that captures that A is a good
-    attribute to use in the decision tree. This something is information gain. Formally:
-
-        IG(S,A) = H(S) - H(S|A)
-
-    where H is information entropy. Recall that entropy captures how orderly or chaotic
-    a system is. A system that is very chaotic will evenly distribute probabilities to
-    all outcomes (e.g. 50% chance of class 0, 50% chance of class 1). Machine learning
-    algorithms work to decrease entropy, as that is the only way to make predictions
-    that are accurate on testing data. Formally, H is defined as:
-
-        H(S) = sum_{c in (classes in S)} -p(c) * log_2 p(c)
-
-    To elaborate: for each class in S, you compute its prior probability p(c):
-
-        (# of elements of class c in S) / (total # of elements in S)
-
-    Then you compute the term for this class:
-
-        -p(c) * log_2 p(c)
-
-    Then compute the sum across all classes. The final number is the entropy. To gain
-    more intution about entropy, consider the following - what does H(S) = 0 tell you
-    about S?
-
-    Information gain is an extension of entropy. The equation for information gain
-    involves comparing the entropy of the set and the entropy of the set when conditioned
-    on selecting for a single attribute (e.g. S(A == 0)).
-
-    For more details: https://en.wikipedia.org/wiki/ID3_algorithm#The_ID3_metrics
+  """
 
     Args:
         features (np.array): numpy array containing features for each example.
