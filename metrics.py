@@ -2,20 +2,6 @@ import numpy as np
 
 def confusion_matrix(actual, predictions):
     """
-    Given predictions (an N-length numpy vector) and actual labels (an N-length 
-    numpy vector), compute the confusion matrix. The confusion 
-    matrix for a binary classifier would be a 2x2 matrix as follows:
-
-    [
-        [true_negatives, false_positives],
-        [false_negatives, true_positives]
-    ]
-
-    YOU DO NOT NEED TO IMPLEMENT CONFUSION MATRICES THAT ARE FOR MORE THAN TWO 
-    CLASSES (binary).
-    
-    Compute and return the confusion matrix.
-
     Args:
         actual (np.array): predicted labels of length N
         predictions (np.array): predicted labels of length N
@@ -32,11 +18,6 @@ def confusion_matrix(actual, predictions):
 
 def accuracy(actual, predictions):
     """
-    Given predictions (an N-length numpy vector) and actual labels (an N-length 
-    numpy vector), compute the accuracy:
-
-    Hint: implement and use the confusion_matrix function!
-
     Args:
         actual (np.array): predicted labels of length N
         predictions (np.array): predicted labels of length N
@@ -51,13 +32,6 @@ def accuracy(actual, predictions):
 
 def precision_and_recall(actual, predictions):
     """
-    Given predictions (an N-length numpy vector) and actual labels (an N-length 
-    numpy vector), compute the precision and recall:
-
-    https://en.wikipedia.org/wiki/Precision_and_recall
-
-    Hint: implement and use the confusion_matrix function!
-
     Args:
         actual (np.array): predicted labels of length N
         predictions (np.array): predicted labels of length N
@@ -73,13 +47,6 @@ def precision_and_recall(actual, predictions):
 
 def f1_measure(actual, predictions):
     """
-    Given predictions (an N-length numpy vector) and actual labels (an N-length 
-    numpy vector), compute the F1-measure:
-
-   https://en.wikipedia.org/wiki/Precision_and_recall#F-measure
-
-    Hint: implement and use the precision_and_recall function!
-
     Args:
         actual (np.array): predicted labels of length N
         predictions (np.array): predicted labels of length N
